@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viewport Info</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="crosshair-h"></div>
+    <div id="crosshair-v"></div>
+
+    <header>
+      <h1>VIEWPORT</h1>
+      <div id="dimension-badge">
+        <span id="vw">—</span> &times; <span id="vh">—</span>
+      </div>
+    </header>
+
+    <main id="metrics">
+      <div class="metric">
+        <span class="label">Inner Width</span>
+        <span class="value" id="innerWidth">—</span>
+        <span class="unit">px</span>
+      </div>
+      <div class="metric">
+        <span class="label">Inner Height</span>
+        <span class="value" id="innerHeight">—</span>
+        <span class="unit">px</span>
+      </div>
+      <div class="metric">
+        <span class="label">Device Pixel Ratio</span>
+        <span class="value" id="dpr">—</span>
+        <span class="unit"></span>
+      </div>
+      <div class="metric">
+        <span class="label">Screen Width</span>
+        <span class="value" id="screenWidth">—</span>
+        <span class="unit">px</span>
+      </div>
+      <div class="metric">
+        <span class="label">Screen Height</span>
+        <span class="value" id="screenHeight">—</span>
+        <span class="unit">px</span>
+      </div>
+      <div class="metric">
+        <span class="label">Color Depth</span>
+        <span class="value" id="colorDepth">—</span>
+        <span class="unit">bit</span>
+      </div>
+      <div class="metric">
+        <span class="label">Orientation</span>
+        <span class="value" id="orientation">—</span>
+        <span class="unit"></span>
+      </div>
+      <div class="metric">
+        <span class="label">Avail Screen</span>
+        <span class="value" id="availScreen">—</span>
+        <span class="unit">px</span>
+      </div>
+      <div class="metric">
+        <span class="label">Outer Width</span>
+        <span class="value" id="outerWidth">—</span>
+        <span class="unit">px</span>
+      </div>
+      <div class="metric">
+        <span class="label">Outer Height</span>
+        <span class="value" id="outerHeight">—</span>
+        <span class="unit">px</span>
+      </div>
+      <div class="metric">
+        <span class="label">WebGL</span>
+        <span class="value" id="webgl">—</span>
+        <span class="unit"></span>
+      </div>
+      <div class="metric">
+        <span class="label">WebGPU</span>
+        <span class="value" id="webgpu">—</span>
+        <span class="unit"></span>
+      </div>
+      <div class="metric span-2">
+        <span class="label">User Agent</span>
+        <span class="value small" id="userAgent">—</span>
+        <span class="unit"></span>
+      </div>
+    </main>
+
+    <footer>
+      <span id="cursor-coords">&bull; &bull; &bull;</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
