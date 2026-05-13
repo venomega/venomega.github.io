@@ -1,96 +1,401 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Viewport Info</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <div id="crosshair-h"></div>
-    <div id="crosshair-v"></div>
 
-    <header>
-      <h1>VIEWPORT</h1>
-      <div id="dimension-badge">
-        <span id="vw">—</span> &times; <span id="vh">—</span>
-      </div>
-    </header>
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
 
-    <main id="metrics">
-      <div class="metric">
-        <span class="label">Inner Width</span>
-        <span class="value" id="innerWidth">—</span>
-        <span class="unit">px</span>
-      </div>
-      <div class="metric">
-        <span class="label">Inner Height</span>
-        <span class="value" id="innerHeight">—</span>
-        <span class="unit">px</span>
-      </div>
-      <div class="metric">
-        <span class="label">Device Pixel Ratio</span>
-        <span class="value" id="dpr">—</span>
-        <span class="unit"></span>
-      </div>
-      <div class="metric">
-        <span class="label">Screen Width</span>
-        <span class="value" id="screenWidth">—</span>
-        <span class="unit">px</span>
-      </div>
-      <div class="metric">
-        <span class="label">Screen Height</span>
-        <span class="value" id="screenHeight">—</span>
-        <span class="unit">px</span>
-      </div>
-      <div class="metric">
-        <span class="label">Color Depth</span>
-        <span class="value" id="colorDepth">—</span>
-        <span class="unit">bit</span>
-      </div>
-      <div class="metric">
-        <span class="label">Orientation</span>
-        <span class="value" id="orientation">—</span>
-        <span class="unit"></span>
-      </div>
-      <div class="metric">
-        <span class="label">Avail Screen</span>
-        <span class="value" id="availScreen">—</span>
-        <span class="unit">px</span>
-      </div>
-      <div class="metric">
-        <span class="label">Outer Width</span>
-        <span class="value" id="outerWidth">—</span>
-        <span class="unit">px</span>
-      </div>
-      <div class="metric">
-        <span class="label">Outer Height</span>
-        <span class="value" id="outerHeight">—</span>
-        <span class="unit">px</span>
-      </div>
-      <div class="metric">
-        <span class="label">WebGL</span>
-        <span class="value" id="webgl">—</span>
-        <span class="unit"></span>
-      </div>
-      <div class="metric">
-        <span class="label">WebGPU</span>
-        <span class="value" id="webgpu">—</span>
-        <span class="unit"></span>
-      </div>
-      <div class="metric span-2">
-        <span class="label">User Agent</span>
-        <span class="value small" id="userAgent">—</span>
-        <span class="unit"></span>
-      </div>
-    </main>
-
-    <footer>
-      <span id="cursor-coords">&bull; &bull; &bull;</span>
-    </footer>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <span id="nav-initials">JD</span><span style="color:var(--text3)">/</span><span id="nav-tagline-short" style="font-weight:400;font-size:.9rem;color:var(--text2)">dev</span>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="#about">Sobre mí</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Proyectos</a>
+    <a href="#experience">Experiencia</a>
+    <a href="#services">Servicios</a>
+    <a href="#contact">Contacto</a>
   </div>
+  <a href="#contact" class="nav-cta" id="nav-cta">Hablemos →</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-  <script src="script.js"></script>
+<!-- MOBILE DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<div class="nav-drawer" id="nav-drawer">
+  <button class="drawer-close" id="drawer-close">✕</button>
+  <div class="drawer-links" id="drawer-links">
+    <a href="#about">Sobre mí</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Proyectos</a>
+    <a href="#experience">Experiencia</a>
+    <a href="#services">Servicios</a>
+    <a href="#contact">Contacto</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag" id="hero-tag">disponible para proyectos</div>
+    <h1 class="hero-name" id="hero-name">
+      Hola, soy<br>
+      <span class="accent-word" id="hero-firstname">Jane</span> <em id="hero-lastname">Doe</em>
+    </h1>
+    <p class="hero-desc" id="hero-desc">
+      Desarrolladora full-stack con pasión por construir productos digitales robustos, escalables y con gran experiencia de usuario.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">Ver proyectos →</a>
+      <a href="#contact" class="btn-secondary">Contactar</a>
+    </div>
+    <div class="hero-badges" id="hero-badges"></div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar" id="stats-bar">
+  <div class="stats-track" id="stats-track"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo-wrap">
+      <div class="about-photo">
+        <div class="about-photo-placeholder" id="about-avatar">👩‍💻</div>
+      </div>
+      <div class="about-photo-frame"></div>
+    </div>
+    <div class="about-text reveal">
+      <div>
+        <div class="section-label">sobre mí</div>
+        <h2 class="section-title" id="about-title">La persona<br>detrás del código</h2>
+      </div>
+      <p class="about-intro" id="about-intro">"Construyo con cuidado, pienso en sistemas y disfruto resolver problemas complejos."</p>
+      <p class="about-body" id="about-body">
+        Soy desarrolladora con más de 5 años de experiencia creando aplicaciones web y móviles. Me muevo cómodamente entre el frontend, el backend y la infraestructura cloud, lo que me permite tener una visión completa del producto.
+      </p>
+      <div class="about-details" id="about-details"></div>
+      <div class="about-social" id="about-social"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label">expertise</div>
+        <h2 class="section-title">Stack &<br>Herramientas</h2>
+      </div>
+    </div>
+    <div class="skills-categories reveal" id="skills-categories"></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label">showcase</div>
+        <h2 class="section-title">Proyectos<br>Destacados</h2>
+      </div>
+    </div>
+    <div class="projects-filters reveal" id="projects-filters"></div>
+    <div class="projects-grid" id="projects-grid"></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="experience-container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label">trayectoria</div>
+        <h2 class="section-title">Experiencia</h2>
+      </div>
+    </div>
+    <div class="timeline reveal" id="timeline"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label">oferta</div>
+        <h2 class="section-title">¿En qué<br>puedo ayudarte?</h2>
+      </div>
+    </div>
+    <div class="services-grid reveal" id="services-grid"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-label">contacto</div>
+        <h2 class="section-title">Trabajemos<br>juntos</h2>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="contact-intro" id="contact-intro">"Siempre abierta a nuevos proyectos, colaboraciones o simplemente una buena conversación sobre tecnología."</p>
+        <div class="contact-methods" id="contact-methods"></div>
+      </div>
+      <div class="reveal">
+        <form class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-input" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="tu@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mensaje</label>
+            <textarea class="form-textarea" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Enviar mensaje →</button>
+          <p class="form-msg" id="form-msg">✓ Mensaje enviado. ¡Te respondo pronto!</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-copy" id="footer-copy">© 2025 Jane Doe. Hecho con ♥ y demasiado café.</p>
+  <a href="#hero" class="footer-back">↑ Volver arriba</a>
+</footer>
+
+<!-- CONFIG PANEL -->
+<div class="config-toggle" id="config-toggle">⚙ Config</div>
+<div class="config-panel" id="config-panel">
+  <div class="config-header">
+    <span class="config-title">⚙ Configuración</span>
+    <button class="config-close" id="config-close">✕</button>
+  </div>
+  <div class="config-body">
+
+    <!-- IDENTIDAD -->
+    <div>
+      <div class="config-section-title">Identidad</div>
+      <div class="config-row">
+        <label class="config-label">Nombre <span id="lbl-firstname"></span></label>
+        <input class="config-input" id="cfg-firstname" placeholder="Jane">
+      </div>
+      <div class="config-row">
+        <label class="config-label">Apellido <span id="lbl-lastname"></span></label>
+        <input class="config-input" id="cfg-lastname" placeholder="Doe">
+      </div>
+      <div class="config-row">
+        <label class="config-label">Rol / Tagline corto</label>
+        <input class="config-input" id="cfg-tagline" placeholder="dev">
+      </div>
+      <div class="config-row">
+        <label class="config-label">Avatar (emoji o URL imagen)</label>
+        <input class="config-input" id="cfg-avatar" placeholder="👩‍💻 o https://...">
+      </div>
+      <div class="config-row">
+        <label class="config-label">Descripción hero</label>
+        <textarea class="config-textarea" id="cfg-desc"></textarea>
+      </div>
+      <div class="config-row">
+        <label class="config-label">Hero tag (badge superior)</label>
+        <input class="config-input" id="cfg-hero-tag" placeholder="disponible para proyectos">
+      </div>
+    </div>
+
+    <!-- COLORES -->
+    <div>
+      <div class="config-section-title">Colores</div>
+      <div class="config-grid2">
+        <div class="config-row">
+          <label class="config-label">Fondo</label>
+          <input class="config-input config-color" type="color" id="cfg-bg" value="#0a0a0a">
+        </div>
+        <div class="config-row">
+          <label class="config-label">Fondo 2</label>
+          <input class="config-input config-color" type="color" id="cfg-bg2" value="#111111">
+        </div>
+        <div class="config-row">
+          <label class="config-label">Texto</label>
+          <input class="config-input config-color" type="color" id="cfg-text" value="#f0ede8">
+        </div>
+        <div class="config-row">
+          <label class="config-label">Acento 1</label>
+          <input class="config-input config-color" type="color" id="cfg-accent" value="#e8ff47">
+        </div>
+        <div class="config-row">
+          <label class="config-label">Acento 2</label>
+          <input class="config-input config-color" type="color" id="cfg-accent2" value="#ff6b35">
+        </div>
+        <div class="config-row">
+          <label class="config-label">Acento 3</label>
+          <input class="config-input config-color" type="color" id="cfg-accent3" value="#47c8ff">
+        </div>
+      </div>
+      <div>
+        <div class="config-section-title" style="margin-top:.5rem">Temas rápidos</div>
+        <div class="config-grid2">
+          <button class="config-btn" onclick="applyTheme('dark-lime')">🟢 Dark Lime</button>
+          <button class="config-btn" onclick="applyTheme('dark-orange')">🟠 Dark Orange</button>
+          <button class="config-btn" onclick="applyTheme('dark-blue')">🔵 Dark Blue</button>
+          <button class="config-btn" onclick="applyTheme('light-minimal')">⚪ Light Minimal</button>
+          <button class="config-btn" onclick="applyTheme('purple-rain')">🟣 Purple Rain</button>
+          <button class="config-btn" onclick="applyTheme('retro-green')">💚 Retro Term</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIPOGRAFÍA -->
+    <div>
+      <div class="config-section-title">Tipografía</div>
+      <div class="config-row">
+        <label class="config-label">Fuente display</label>
+        <select class="config-select" id="cfg-font-display">
+          <option value="'Syne', sans-serif">Syne</option>
+          <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
+          <option value="'DM Sans', sans-serif">DM Sans</option>
+          <option value="'Bebas Neue', cursive">Bebas Neue</option>
+          <option value="'Playfair Display', serif">Playfair Display</option>
+          <option value="'Josefin Sans', sans-serif">Josefin Sans</option>
+        </select>
+      </div>
+      <div class="config-row">
+        <label class="config-label">Fuente body</label>
+        <select class="config-select" id="cfg-font-body">
+          <option value="'DM Mono', monospace">DM Mono</option>
+          <option value="'IBM Plex Mono', monospace">IBM Plex Mono</option>
+          <option value="'Fira Code', monospace">Fira Code</option>
+          <option value="'DM Sans', sans-serif">DM Sans</option>
+          <option value="'Inter', sans-serif">Inter</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div>
+      <div class="config-section-title">Sobre mí</div>
+      <div class="config-row">
+        <label class="config-label">Intro (cursiva)</label>
+        <textarea class="config-textarea" id="cfg-about-intro"></textarea>
+      </div>
+      <div class="config-row">
+        <label class="config-label">Cuerpo</label>
+        <textarea class="config-textarea" id="cfg-about-body"></textarea>
+      </div>
+    </div>
+
+    <!-- CONTACTO INFO -->
+    <div>
+      <div class="config-section-title">Contacto</div>
+      <div class="config-row">
+        <label class="config-label">Email</label>
+        <input class="config-input" id="cfg-email" placeholder="tu@email.com">
+      </div>
+      <div class="config-row">
+        <label class="config-label">Telegram</label>
+        <input class="config-input" id="cfg-telegram" placeholder="https://t.me/usuario">
+      </div>
+      <div class="config-row">
+        <label class="config-label">Ubicación</label>
+        <input class="config-input" id="cfg-location" placeholder="Madrid, España 🇪🇸">
+      </div>
+      <div class="config-row">
+        <label class="config-label">GitHub URL</label>
+        <input class="config-input" id="cfg-github" placeholder="https://github.com/...">
+      </div>
+      <div class="config-row">
+        <label class="config-label">LinkedIn URL</label>
+        <input class="config-input" id="cfg-linkedin" placeholder="https://linkedin.com/in/...">
+      </div>
+      <div class="config-row">
+        <label class="config-label">Twitter/X URL</label>
+        <input class="config-input" id="cfg-twitter" placeholder="https://x.com/...">
+      </div>
+    </div>
+
+    <!-- OPCIONES UI -->
+    <div>
+      <div class="config-section-title">UI / Features</div>
+      <div class="config-row">
+        <div class="config-toggle-switch">
+          <span>Cursor personalizado</span>
+          <label class="switch"><input type="checkbox" id="cfg-cursor" checked><span class="switch-slider"></span></label>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-toggle-switch">
+          <span>Efecto noise de fondo</span>
+          <label class="switch"><input type="checkbox" id="cfg-noise" checked><span class="switch-slider"></span></label>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-toggle-switch">
+          <span>Grid de fondo en hero</span>
+          <label class="switch"><input type="checkbox" id="cfg-grid" checked><span class="switch-slider"></span></label>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-toggle-switch">
+          <span>Mostrar sección Servicios</span>
+          <label class="switch"><input type="checkbox" id="cfg-show-services" checked><span class="switch-slider"></span></label>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-toggle-switch">
+          <span>Mostrar sección Experiencia</span>
+          <label class="switch"><input type="checkbox" id="cfg-show-experience" checked><span class="switch-slider"></span></label>
+        </div>
+      </div>
+      <div class="config-row">
+        <label class="config-label">Texto botón CTA nav</label>
+        <input class="config-input" id="cfg-cta" placeholder="Hablemos →">
+      </div>
+    </div>
+
+    <!-- EXPORT / IMPORT -->
+    <div>
+      <div class="config-section-title">Exportar / Importar</div>
+      <button class="config-btn" onclick="exportConfig()">📋 Copiar configuración JSON</button>
+      <div class="config-row" style="margin-top:.75rem">
+        <label class="config-label">Pegar JSON para importar</label>
+        <textarea class="config-textarea" id="cfg-import-json" placeholder='{"firstname":"Jane",...}'></textarea>
+      </div>
+      <button class="config-btn primary" onclick="importConfig()">⬇ Importar configuración</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
