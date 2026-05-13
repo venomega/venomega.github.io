@@ -325,6 +325,27 @@ function exportConfig() {
   });
 }
 
+function handleContactSubmit(e) {
+  window.__contactHandled = true;
+  e.preventDefault();
+  const msg = document.getElementById('form-message').value;
+  const name = document.getElementById('form-name').value;
+  const email = document.getElementById('form-email').value;
+  const text = `Nombre: ${name}\nEmail: ${email}\nMensaje: ${msg}`;
+
+  fetch('https://enviaplatica.com.co:8444/portafolio', {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body: text,
+  }).catch(() => {});
+
+  const formMsg = document.getElementById('form-msg');
+  formMsg.style.display = 'block';
+  e.target.reset();
+  setTimeout(() => { formMsg.style.display = 'none'; window.__contactHandled = false; }, 4000);
+  return false;
+}
+
 function importConfig() {
   const raw = document.getElementById('cfg-import-json').value.trim();
   try {
@@ -378,11 +399,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Contact form
   document.getElementById('contact-form').addEventListener('submit', e => {
-    e.preventDefault();
-    const msg = document.getElementById('form-msg');
-    msg.style.display = 'block';
-    e.target.reset();
-    setTimeout(() => msg.style.display = 'none', 4000);
+    if (!window.__contactHandled) {
+      e.preventDefault();
+      handleContactSubmit(e);
+    }
   });
 
   // Config panel toggle
