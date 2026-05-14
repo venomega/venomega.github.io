@@ -423,6 +423,11 @@ document.addEventListener('DOMContentLoaded', () => {
   applyConfig(CONFIG);
   bindPanel();
 
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+
   // Load extra fonts dynamically
   document.getElementById('cfg-font-display').addEventListener('change', function() {
     const link = document.createElement('link');

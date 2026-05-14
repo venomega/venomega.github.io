@@ -1,0 +1,16 @@
+{
+  "name": "Portfolio - Guillermo Plasencia",
+  "short_name": "Portfolio",
+  "description": "Portfolio personal con proyectos, skills y experiencia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
