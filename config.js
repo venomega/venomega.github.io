@@ -1,4 +1,4 @@
-const CONFIG = {
+eonst CONFIG = {
   /* ── Identidad ── */
   firstname: "Guillermo",
   lastname: "Plasencia",
@@ -138,8 +138,8 @@ const CONFIG = {
       emoji: "📊",
       tags: ["Frontend", "Backend"],
       stack: ["Next.js", "TypeScript", "PostgreSQL", "Redis", "Stripe"],
-      demo: "#",
-      repo: "#",
+      demo: "",
+      repo: "",
       featured: true,
     },
     {
@@ -150,7 +150,7 @@ const CONFIG = {
       tags: ["Backend", "DevOps"],
       stack: ["Node.js", "Go", "RabbitMQ", "Kubernetes", "Terraform"],
       demo: "",
-      repo: "#",
+      repo: "",
       featured: false,
     },
     {
@@ -160,8 +160,8 @@ const CONFIG = {
       emoji: "💳",
       tags: ["Mobile", "Frontend"],
       stack: ["React Native", "TypeScript", "Firebase", "Plaid API"],
-      demo: "#",
-      repo: "#",
+      demo: "",
+      repo: "",
       featured: true,
     },
     {
@@ -172,7 +172,7 @@ const CONFIG = {
       tags: ["DevOps", "Open Source"],
       stack: ["Python", "GitHub Actions", "AWS", "Docker", "Terraform"],
       demo: "",
-      repo: "#",
+      repo: "",
       featured: false,
     },
     {
@@ -182,8 +182,8 @@ const CONFIG = {
       emoji: "🛒",
       tags: ["Frontend", "Backend"],
       stack: ["Next.js", "Node.js", "MongoDB", "Stripe", "Cloudinary"],
-      demo: "#",
-      repo: "#",
+      demo: "",
+      repo: "",
       featured: true,
     },
     {
@@ -194,7 +194,7 @@ const CONFIG = {
       tags: ["DevOps"],
       stack: ["Terraform", "AWS", "GitHub Actions", "Ansible"],
       demo: "",
-      repo: "#",
+      repo: "",
       featured: false,
     },
     {
@@ -204,8 +204,8 @@ const CONFIG = {
       emoji: "🛍️",
       tags: ["Frontend", "Backend"],
       stack: ["HTML", "JavaScript", "CSS", "Bash", "GitHub"],
-      demo: "",
-      repo: "https://github.com/venomega/cstore",
+      demo: "https://venomega.github.io/cstore",
+      repo: "",
       featured: false,
     },
     {
@@ -215,8 +215,8 @@ const CONFIG = {
       emoji: "👁️",
       tags: ["Frontend"],
       stack: ["HTML", "CSS", "JavaScript"],
-      demo: "",
-      repo: "https://github.com/venomega/viewport",
+      demo: "https://venomega.github.io/viewport",
+      repo: "",
       featured: false,
     },
     {
@@ -237,7 +237,7 @@ const CONFIG = {
       emoji: "⚡",
       tags: ["Frontend", "Backend"],
       stack: ["Node.js", "WebSocket", "HTML", "JavaScript", "SSL"],
-      demo: "",
+      demo: "https://srv16385-206152.vps.etecsa.cu:9009",
       repo: "https://github.com/venomega/powerline",
       featured: false,
     },
