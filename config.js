@@ -1,4 +1,4 @@
-eonst CONFIG = {
+const CONFIG = {
   /* ── Identidad ── */
   firstname: "Guillermo",
   lastname: "Plasencia",
