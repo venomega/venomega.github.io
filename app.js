@@ -203,7 +203,7 @@ function buildServices(services) {
 function buildContactMethods(cfg) {
   const methods = [
     { icon: '✉️', label: 'Email', val: cfg.email,    href: `mailto:${cfg.email}` },
-    { icon: '✈️', label: 'Telegram', val: cfg.telegram, href: cfg.telegram },
+    { icon: '<img src="3party/telegram.png" alt="Telegram" style="width:24px;height:24px">', label: 'Telegram', val: cfg.telegram, href: cfg.telegram },
     { icon: '📍', label: 'Ubicación', val: cfg.location, href: '#' },
   ].filter(m => m.val);
   document.getElementById('contact-methods').innerHTML = methods.map(m =>
@@ -423,19 +423,17 @@ document.addEventListener('DOMContentLoaded', () => {
   applyConfig(CONFIG);
   bindPanel();
 
-  // Load extra Google Fonts dynamically based on selection
+  // Load extra fonts dynamically
   document.getElementById('cfg-font-display').addEventListener('change', function() {
-    const fontName = this.value.replace(/'/g,'').split(',')[0].trim();
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/ /g,'+')}:wght@400;600;700;800&display=swap`;
+    link.href = '3party/b.woff2';
     document.head.appendChild(link);
   });
   document.getElementById('cfg-font-body').addEventListener('change', function() {
-    const fontName = this.value.replace(/'/g,'').split(',')[0].trim();
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/ /g,'+')}:wght@300;400;500&display=swap`;
+    link.href = '3party/c.woff2';
     document.head.appendChild(link);
   });
 
