@@ -340,6 +340,17 @@ const CONFIG = {
       repo: "https://github.com/venomega/fakentp",
       featured: false,
     },
+    {
+      title: "HNC Showcase",
+      type: "Frontend",
+      desc: "Visor de eventos de hotel con lista de actividades, calendario mensual con historial y vista de salones para filtrar por espacio. Diseño responsive mobile/desktop.",
+      emoji: "🏨",
+      tags: ["Frontend", "Backend"],
+      stack: ["Node.js", "React"],
+      demo: "https://venomega.github.io/hnc-showcase/",
+      repo: "",
+      featured: false,
+    },
   ],
 
   /* ── Experiencia ── */
