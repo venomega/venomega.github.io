@@ -351,6 +351,17 @@ const CONFIG = {
       repo: "",
       featured: false,
     },
+    {
+      title: "tbot",
+      type: "Backend · CLI",
+      desc: "Chatbot de terminal en Python con sistema de herramientas (tools.js). Cliente de chat por línea de comandos sin dependencias pesadas.",
+      emoji: "🤖",
+      tags: ["Backend"],
+      stack: ["Python", "JavaScript", "CLI"],
+      demo: "",
+      repo: "https://github.com/venomega/tbot",
+      featured: false,
+    },
   ],
 
   /* ── Experiencia ── */
