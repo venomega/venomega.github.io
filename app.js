@@ -222,6 +222,8 @@ function syncPanel(cfg) {
   const set = (id, val) => { const el = document.getElementById(id); if(el) el.value = val||''; };
   set('cfg-firstname', cfg.firstname);
   set('cfg-lastname',  cfg.lastname);
+  const fnEl = document.getElementById('lbl-firstname'); if(fnEl) fnEl.textContent = cfg.firstname;
+  const lnEl = document.getElementById('lbl-lastname');  if(lnEl) lnEl.textContent = cfg.lastname;
   set('cfg-tagline',   cfg.tagline);
   set('cfg-avatar',    cfg.avatar);
   set('cfg-desc',      cfg.heroDesc);
@@ -235,6 +237,7 @@ function syncPanel(cfg) {
   set('cfg-linkedin', cfg.linkedin);
   set('cfg-twitter',  cfg.twitter);
   set('cfg-cta',      cfg.navCta);
+  set('cfg-footer',   cfg.footerText);
 
   set('cfg-bg',      cfg.colors.bg);
   set('cfg-bg2',     cfg.colors.bg2);
@@ -270,8 +273,12 @@ function bindPanel() {
     live(id, v => document.documentElement.style.setProperty(cssVar, v));
   };
 
-  live('cfg-firstname', v => { CONFIG.firstname = v; document.getElementById('hero-firstname').textContent = v; document.getElementById('nav-initials').textContent = (v[0]||'') + (CONFIG.lastname[0]||''); });
-  live('cfg-lastname',  v => { CONFIG.lastname = v; document.getElementById('hero-lastname').textContent = v; document.getElementById('nav-initials').textContent = (CONFIG.firstname[0]||'') + (v[0]||''); });
+  const updNameLabels = () => {
+    const fn = document.getElementById('lbl-firstname'); if(fn) fn.textContent = CONFIG.firstname;
+    const ln = document.getElementById('lbl-lastname');  if(ln) ln.textContent = CONFIG.lastname;
+  };
+  live('cfg-firstname', v => { CONFIG.firstname = v; document.getElementById('hero-firstname').textContent = v; document.getElementById('nav-initials').textContent = (v[0]||'') + (CONFIG.lastname[0]||''); updNameLabels(); });
+  live('cfg-lastname',  v => { CONFIG.lastname = v; document.getElementById('hero-lastname').textContent = v; document.getElementById('nav-initials').textContent = (CONFIG.firstname[0]||'') + (v[0]||''); updNameLabels(); });
   live('cfg-tagline',   v => { CONFIG.tagline = v; document.getElementById('nav-tagline-short').textContent = v; });
   live('cfg-avatar',    v => { CONFIG.avatar = v; const a = document.getElementById('about-avatar'); if(v.startsWith('http')) { a.innerHTML=`<img src="${v}" style="width:100%;height:100%;object-fit:cover;">`; } else { a.textContent = v; } });
   live('cfg-desc',      v => { CONFIG.heroDesc = v; document.getElementById('hero-desc').textContent = v; });
@@ -285,6 +292,7 @@ function bindPanel() {
   live('cfg-linkedin', v => { CONFIG.linkedin = v; });
   live('cfg-twitter',  v => { CONFIG.twitter = v; });
   live('cfg-cta', v => { CONFIG.navCta = v; document.getElementById('nav-cta').textContent = v; });
+  live('cfg-footer', v => { CONFIG.footerText = v; document.getElementById('footer-copy').textContent = v; });
 
   liveColor('cfg-bg',      '--bg');
   liveColor('cfg-bg2',     '--bg2');
