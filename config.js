@@ -362,6 +362,17 @@ const CONFIG = {
       repo: "https://github.com/venomega/tbot",
       featured: false,
     },
+    {
+      title: "Wood Works",
+      type: "Frontend",
+      desc: "Catalogo visual de trabajos en madera con diseño limpio, galería responsiva y presentación estilo portfolio.",
+      emoji: "🪵",
+      tags: ["Frontend"],
+      stack: ["HTML", "CSS", "JavaScript"],
+      demo: "https://venomega.github.io/wood_works",
+      repo: "",
+      featured: false,
+    },
   ],
 
   /* ── Experiencia ── */
