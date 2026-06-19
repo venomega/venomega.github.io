@@ -7,7 +7,7 @@ const CONFIG = {
   heroTag: "disponible para proyectos",
   heroDesc: "Desarrollador full-stack con pasión por construir productos digitales robustos, escalables y con gran experiencia de usuario. Del primer commit al deploy en producción.",
   aboutIntro: '"Construyo con cuidado, pienso en sistemas y disfruto resolver problemas complejos."',
-  aboutBody: "Soy desarrolladora con más de 5 años de experiencia creando aplicaciones web y móviles. Me muevo cómodamente entre el frontend, el backend y la infraestructura cloud, lo que me permite tener una visión completa del producto.\n\nMe apasiona el código limpio, la arquitectura bien pensada y la automatización de procesos. Cuando no estoy programando, aprendo sobre sistemas distribuidos o contribuyo a proyectos open source.",
+  aboutBody: "Soy desarrollador con más de 5 años de experiencia creando aplicaciones web y móviles. Me muevo cómodamente entre el frontend, el backend y la infraestructura cloud, lo que me permite tener una visión completa del producto.\n\nMe apasiona el código limpio, la arquitectura bien pensada y la automatización de procesos. Cuando no estoy programando, aprendo sobre sistemas distribuidos o contribuyo a proyectos open source.",
   contactIntro: '"Siempre abierta a nuevos proyectos, colaboraciones o simplemente una buena conversación sobre tecnología."',
   footerText: "© 2026. Hecho con ♥ y demasiada pizza.",
   navCta: "Hablemos →",
