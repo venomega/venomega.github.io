@@ -450,4 +450,333 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(link);
   });
 
+  /* ═══ WIZARD: CREADOR DE PROYECTOS ═══ */
+  initWizard();
+
 });
+
+/* ══════════════════════════════════════════════
+   WIZARD — INTERFAZ INTERACTIVA DE PROYECTOS
+   ══════════════════════════════════════════════ */
+function initWizard() {
+  const overlay   = document.getElementById('wizard-overlay');
+  const closeBtn  = document.getElementById('wizard-close');
+  const btnAbrir  = document.getElementById('btn-empezar');
+  const steps     = document.querySelectorAll('.wizard-step');
+  const indicators = document.querySelectorAll('.wizard-step-indicator');
+  const lines     = document.querySelectorAll('.wizard-step-line');
+  const nextBtn   = document.getElementById('wizard-next');
+  const backBtn   = document.getElementById('wizard-back');
+  const bar       = document.getElementById('wizard-progress-bar');
+  const submitBtn = document.getElementById('wizard-submit');
+  const msgEl     = document.getElementById('wizard-msg');
+  const resumenEl = document.getElementById('wizard-resumen');
+
+  let currentStep = 1;
+  const totalSteps = 4;
+  let tipoSeleccionado = null;
+  let enviando = false;
+  let closing = false;
+
+  // ── Abrir / Cerrar ──
+  function openWizard() {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeWizard() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    closing = true;
+    // Reset after transition
+    setTimeout(() => {
+      resetWizard();
+      closing = false;
+    }, 400);
+  }
+
+  btnAbrir.addEventListener('click', openWizard);
+  closeBtn.addEventListener('click', closeWizard);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeWizard();
+  });
+
+  // ── Ir a paso ──
+  function goToStep(step) {
+    currentStep = Math.max(1, Math.min(step, totalSteps));
+
+    // Steps body
+    steps.forEach(s => s.classList.remove('active'));
+    document.querySelector(`.wizard-step[data-step="${currentStep}"]`).classList.add('active');
+
+    // Indicators
+    indicators.forEach((ind, i) => {
+      const num = i + 1;
+      ind.classList.remove('active', 'done');
+      if (num === currentStep) ind.classList.add('active');
+      else if (num < currentStep) ind.classList.add('done');
+    });
+
+    // Lines
+    lines.forEach((line, i) => {
+      const num = i + 1;
+      line.classList.toggle('done', num < currentStep);
+    });
+
+    // Progress bar
+    bar.style.width = ((currentStep - 1) / (totalSteps - 1) * 100) + '%';
+
+    // Buttons
+    backBtn.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+    if (currentStep === totalSteps) {
+      nextBtn.style.display = 'none';
+      actualizarResumen();
+    } else {
+      nextBtn.style.display = '';
+      nextBtn.textContent = 'Siguiente →';
+    }
+
+    // Scroll body al top
+    document.getElementById('wizard-body').scrollTop = 0;
+  }
+
+  // ── Siguiente / Atrás ──
+  nextBtn.addEventListener('click', () => {
+    if (!validarPasoActual()) return;
+    goToStep(currentStep + 1);
+  });
+
+  backBtn.addEventListener('click', () => {
+    goToStep(currentStep - 1);
+  });
+
+  // ── Botón de envío en paso 4 ──
+  submitBtn.addEventListener('click', submitProject);
+
+  // ── Selección de tipo ──
+  document.querySelectorAll('.wizard-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.wizard-option').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      tipoSeleccionado = btn.dataset.value;
+      nextBtn.disabled = false;
+    });
+  });
+
+  // ── Validar paso ──
+  function validarPasoActual() {
+    if (currentStep === 1) {
+      if (!tipoSeleccionado) {
+        shakeElement(document.querySelector('.wizard-options'));
+        return false;
+      }
+      return true;
+    }
+    if (currentStep === 2) {
+      const nombre = document.getElementById('wizard-nombre').value.trim();
+      const desc   = document.getElementById('wizard-desc').value.trim();
+      if (!nombre) {
+        shakeElement(document.getElementById('wizard-nombre'));
+        return false;
+      }
+      if (!desc || desc.length < 10) {
+        shakeElement(document.getElementById('wizard-desc'));
+        return false;
+      }
+      return true;
+    }
+    if (currentStep === 4) {
+      const nombreCliente = document.getElementById('wizard-nombre-cliente').value.trim();
+      const contacto      = document.getElementById('wizard-contacto').value.trim();
+      if (!nombreCliente) {
+        shakeElement(document.getElementById('wizard-nombre-cliente'));
+        return false;
+      }
+      if (!contacto) {
+        shakeElement(document.getElementById('wizard-contacto'));
+        return false;
+      }
+      return true;
+    }
+    return true; // paso 3 es opcional
+  }
+
+  function shakeElement(el) {
+    if (!el) return;
+    el.style.animation = 'none';
+    el.offsetHeight; // reflow
+    el.style.animation = 'shake .35s ease';
+    el.focus();
+    setTimeout(() => el.style.animation = '', 400);
+  }
+
+  // ── Actualizar resumen ──
+  function actualizarResumen() {
+    const tipoMap = {
+      web: '🌐 Aplicación Web',
+      mobile: '📱 App Móvil',
+      desktop: '💻 Aplicación de Escritorio',
+      api: '⚙️ API / Backend',
+      cli: '⌨️ CLI / Herramienta',
+      other: '🔧 Otro'
+    };
+    const nombre    = document.getElementById('wizard-nombre').value.trim() || '—';
+    const desc      = document.getElementById('wizard-desc').value.trim() || '—';
+    const features  = document.getElementById('wizard-features').value.trim() || 'No especificadas';
+    const tech      = document.getElementById('wizard-tech').value.trim() || 'Por definir';
+    const presupuesto = document.getElementById('wizard-presupuesto').value || 'Por definir';
+    const plazo     = document.getElementById('wizard-plazo').value || 'Por definir';
+    const nombreCli = document.getElementById('wizard-nombre-cliente').value.trim() || '—';
+    const contacto  = document.getElementById('wizard-contacto').value.trim() || '—';
+
+    resumenEl.innerHTML = `
+      <strong>📋 Resumen de tu proyecto</strong><br><br>
+      <strong>Tipo:</strong> <span>${tipoMap[tipoSeleccionado] || tipoSeleccionado || '—'}</span><br>
+      <strong>Nombre:</strong> <span>${nombre}</span><br>
+      <strong>Descripción:</strong> <span>${desc.length > 80 ? desc.slice(0,80)+'…' : desc}</span><br>
+      <strong>Presupuesto:</strong> <span>${presupuesto}</span><br>
+      <strong>Plazo:</strong> <span>${plazo}</span><br>
+      <strong>Contacto:</strong> <span>${nombreCli} · ${contacto}</span>
+    `;
+  }
+
+  // ── Enviar proyecto ──
+  async function submitProject() {
+    if (enviando) return;
+    if (!validarPasoActual()) return;
+
+    enviando = true;
+    submitBtn.disabled = true;
+    submitBtn.querySelector('.wizard-submit-text').style.display = 'none';
+    submitBtn.querySelector('.wizard-submit-loading').style.display = 'inline';
+    msgEl.style.display = 'none';
+
+    const tipoMap = {
+      web: '🌐 Aplicación Web',
+      mobile: '📱 App Móvil',
+      desktop: '💻 Aplicación de Escritorio',
+      api: '⚙️ API / Backend',
+      cli: '⌨️ CLI / Herramienta',
+      other: '🔧 Otro'
+    };
+
+    const data = {
+      tipo: tipoMap[tipoSeleccionado] || tipoSeleccionado,
+      nombre: document.getElementById('wizard-nombre').value.trim(),
+      descripcion: document.getElementById('wizard-desc').value.trim(),
+      features: document.getElementById('wizard-features').value.trim(),
+      tecnologias: document.getElementById('wizard-tech').value.trim(),
+      presupuesto: document.getElementById('wizard-presupuesto').value,
+      plazo: document.getElementById('wizard-plazo').value,
+      cliente: document.getElementById('wizard-nombre-cliente').value.trim(),
+      contacto: document.getElementById('wizard-contacto').value.trim(),
+      notas: document.getElementById('wizard-notas').value.trim(),
+    };
+
+    const texto = `🚀 NUEVO PROYECTO DESDE EL PORTFOLIO
+━━━━━━━━━━━━━━━━━━━━━━
+Tipo: ${data.tipo}
+Nombre: ${data.nombre}
+Descripción: ${data.descripcion}
+Funcionalidades: ${data.features || '—'}
+Tecnologías: ${data.tecnologias || '—'}
+Presupuesto: ${data.presupuesto || '—'}
+Plazo: ${data.plazo || '—'}
+━━━━━━━━━━━━━━━━━━━━━━
+Cliente: ${data.cliente}
+Contacto: ${data.contacto}
+Notas: ${data.notas || '—'}
+━━━━━━━━━━━━━━━━━━━━━━`;
+
+    try {
+      await fetch('https://enviaplatica.com.co:8444/portafolio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: texto,
+      });
+    } catch (err) {
+      // Even if fetch fails, we show success (fire-and-forget)
+      console.warn('Wizard submit error:', err);
+    }
+
+    // Success UI
+    submitBtn.querySelector('.wizard-submit-loading').style.display = 'none';
+    submitBtn.style.display = 'none';
+    msgEl.style.display = 'block';
+    document.querySelector('#wizard-step-4 .wizard-question').textContent = '¡Proyecto recibido! 🎉';
+    backBtn.style.visibility = 'hidden';
+    nextBtn.style.display = 'none';
+
+    setTimeout(() => {
+      closeWizard(); // resetWizard se llama dentro de closeWizard
+    }, 3500);
+
+    enviando = false;
+  }
+
+  function resetWizard() {
+    if (overlay.classList.contains('open')) return; // user reopened, don't reset
+    currentStep = 1;
+    tipoSeleccionado = null;
+    enviando = false;
+
+    document.querySelectorAll('.wizard-option').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.wizard-input, .wizard-textarea, .wizard-select').forEach(el => {
+      if (el.tagName === 'SELECT') el.selectedIndex = 0;
+      else el.value = '';
+    });
+    submitBtn.disabled = false;
+    submitBtn.style.display = '';
+    submitBtn.querySelector('.wizard-submit-text').style.display = 'inline';
+    submitBtn.querySelector('.wizard-submit-loading').style.display = 'none';
+    msgEl.style.display = 'none';
+    nextBtn.disabled = true;
+    nextBtn.style.display = '';
+    nextBtn.textContent = 'Siguiente →';
+    // Reset question text for step 4
+    const step4Question = document.querySelector('#wizard-step-4 .wizard-question');
+    if (step4Question) step4Question.textContent = '¿Cómo te contacto?';
+    goToStep(1);
+  }
+
+  // ── Keyboard navigation ──
+  document.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeWizard();
+    if (e.key === 'Enter' && !enviando) {
+      const active = document.activeElement;
+      // Don't trigger on textareas
+      if (active && active.tagName === 'TEXTAREA') return;
+      if (currentStep === totalSteps && submitBtn.style.display !== 'none') {
+        submitBtn.click();
+      } else if (nextBtn.style.display !== 'none') {
+        nextBtn.click();
+      }
+    }
+  });
+
+  // ── Auto-avance en paso 1 (click opción → siguiente) ──
+  document.querySelectorAll('.wizard-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(() => {
+        if (tipoSeleccionado) nextBtn.click();
+      }, 300);
+    });
+  });
+
+  // ── Inicializar ──
+  nextBtn.disabled = true;
+  goToStep(1);
+}
+
+// ── Animación shake (global) ──
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+`;
+document.head.appendChild(styleSheet);

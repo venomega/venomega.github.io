@@ -61,7 +61,7 @@
       Desarrollador full-stack con pasión por construir productos digitales robustos, escalables y con gran experiencia de usuario.
     </p>
     <div class="hero-actions">
-      <a href="#projects" class="btn-primary">Ver proyectos →</a>
+      <button class="btn-primary" id="btn-empezar">Empecemos →</button>
       <a href="#contact" class="btn-secondary">Contactar</a>
     </div>
     <div class="hero-badges" id="hero-badges"></div>
@@ -189,6 +189,130 @@
     </div>
   </div>
 </section>
+
+<!-- ══ WIZARD MODAL: CREADOR DE PROYECTOS ══ -->
+<div class="wizard-overlay" id="wizard-overlay">
+  <div class="wizard-modal" id="wizard-modal">
+    <button class="wizard-close" id="wizard-close" aria-label="Cerrar">✕</button>
+
+    <!-- HEADER -->
+    <div class="wizard-header">
+      <div class="wizard-steps" id="wizard-steps">
+        <div class="wizard-step-indicator active" data-step="1">1</div>
+        <div class="wizard-step-line"></div>
+        <div class="wizard-step-indicator" data-step="2">2</div>
+        <div class="wizard-step-line"></div>
+        <div class="wizard-step-indicator" data-step="3">3</div>
+        <div class="wizard-step-line"></div>
+        <div class="wizard-step-indicator" data-step="4">4</div>
+      </div>
+      <div class="wizard-title" id="wizard-title">Cuéntame sobre tu proyecto</div>
+      <div class="wizard-subtitle" id="wizard-subtitle">Responde las preguntas y enviaré tu idea directamente a mi sistema. Te respondo en menos de 24h.</div>
+    </div>
+
+    <!-- BODY: PASOS -->
+    <div class="wizard-body" id="wizard-body">
+
+      <!-- PASO 1: Tipo de aplicación -->
+      <div class="wizard-step active" data-step="1">
+        <div class="wizard-question">¿Qué tipo de aplicación necesitas?</div>
+        <div class="wizard-options" id="wizard-tipo">
+          <button class="wizard-option" data-value="web" data-icon="🌐">Aplicación Web</button>
+          <button class="wizard-option" data-value="mobile" data-icon="📱">App Móvil</button>
+          <button class="wizard-option" data-value="desktop" data-icon="💻">Aplicación de Escritorio</button>
+          <button class="wizard-option" data-value="api" data-icon="⚙️">API / Backend</button>
+          <button class="wizard-option" data-value="cli" data-icon="⌨️">CLI / Herramienta</button>
+          <button class="wizard-option" data-value="other" data-icon="🔧">Otro</button>
+        </div>
+      </div>
+
+      <!-- PASO 2: Nombre y descripción -->
+      <div class="wizard-step" data-step="2">
+        <div class="wizard-question">Cuéntame más sobre tu proyecto</div>
+        <div class="wizard-form-group">
+          <label class="wizard-label">Nombre del proyecto</label>
+          <input class="wizard-input" id="wizard-nombre" placeholder="Ej: MiApp" maxlength="60">
+        </div>
+        <div class="wizard-form-group">
+          <label class="wizard-label">Descripción breve</label>
+          <textarea class="wizard-textarea" id="wizard-desc" placeholder="Describe qué haría la aplicación, para qué sirve, quién la usaría..." rows="4"></textarea>
+        </div>
+        <div class="wizard-form-group">
+          <label class="wizard-label">Funcionalidades principales (opcional)</label>
+          <textarea class="wizard-textarea" id="wizard-features" placeholder="- Login de usuarios&#10;- Panel de administración&#10;- Notificaciones en tiempo real" rows="3"></textarea>
+        </div>
+      </div>
+
+      <!-- PASO 3: Tecnologías y detalles -->
+      <div class="wizard-step" data-step="3">
+        <div class="wizard-question">Preferencias técnicas</div>
+        <div class="wizard-form-group">
+          <label class="wizard-label">Tecnologías que prefieres (opcional)</label>
+          <input class="wizard-input" id="wizard-tech" placeholder="Ej: React, Node.js, PostgreSQL...">
+        </div>
+        <div class="wizard-form-group">
+          <label class="wizard-label">¿Tienes un presupuesto estimado?</label>
+          <select class="wizard-select" id="wizard-presupuesto">
+            <option value="">Selecciona un rango...</option>
+            <option value="< 500 USD">Menos de 500 USD</option>
+            <option value="500 - 1500 USD">500 — 1500 USD</option>
+            <option value="1500 - 5000 USD">1500 — 5000 USD</option>
+            <option value="5000 - 15000 USD">5000 — 15000 USD</option>
+            <option value="> 15000 USD">Más de 15000 USD</option>
+            <option value="a definir">A definir juntos</option>
+          </select>
+        </div>
+        <div class="wizard-form-group">
+          <label class="wizard-label">Plazo ideal</label>
+          <select class="wizard-select" id="wizard-plazo">
+            <option value="">Selecciona un plazo...</option>
+            <option value="urgente (1-2 semanas)">Urgente (1-2 semanas)</option>
+            <option value="1 mes">1 mes</option>
+            <option value="2-3 meses">2 — 3 meses</option>
+            <option value="3-6 meses">3 — 6 meses</option>
+            <option value="flexible">Flexible / Sin prisa</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- PASO 4: Contacto y envío -->
+      <div class="wizard-step" data-step="4" id="wizard-step-4">
+        <div class="wizard-question">¿Cómo te contacto?</div>
+        <div class="wizard-form-group">
+          <label class="wizard-label">Tu nombre</label>
+          <input class="wizard-input" id="wizard-nombre-cliente" placeholder="Tu nombre" required>
+        </div>
+        <div class="wizard-form-group">
+          <label class="wizard-label">Email o Telegram</label>
+          <input class="wizard-input" id="wizard-contacto" placeholder="email@ejemplo.com o @usuario" required>
+        </div>
+        <div class="wizard-form-group">
+          <label class="wizard-label">Notas adicionales (opcional)</label>
+          <textarea class="wizard-textarea" id="wizard-notas" placeholder="Cualquier detalle que quieras añadir..." rows="3"></textarea>
+        </div>
+
+        <!-- RESUMEN -->
+        <div class="wizard-resumen" id="wizard-resumen"></div>
+
+        <button class="wizard-submit" id="wizard-submit">
+          <span class="wizard-submit-text">🚀 Enviar proyecto</span>
+          <span class="wizard-submit-loading" style="display:none">Enviando...</span>
+        </button>
+        <div class="wizard-msg" id="wizard-msg">✓ Proyecto enviado con éxito. Te responderé pronto!</div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER NAV -->
+    <div class="wizard-nav">
+      <button class="wizard-btn-back" id="wizard-back" style="visibility:hidden">← Atrás</button>
+      <div class="wizard-progress" id="wizard-progress">
+        <div class="wizard-progress-bar" id="wizard-progress-bar"></div>
+      </div>
+      <button class="wizard-btn-next" id="wizard-next">Siguiente →</button>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
