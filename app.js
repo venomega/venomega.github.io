@@ -539,6 +539,14 @@ function initWizard() {
     document.getElementById('wizard-body').scrollTop = 0;
   }
 
+  // ── Actualizar resumen en tiempo real (campos del paso 4) ──
+  document.getElementById('wizard-nombre-cliente').addEventListener('input', () => {
+    if (currentStep === totalSteps) actualizarResumen();
+  });
+  document.getElementById('wizard-contacto').addEventListener('input', () => {
+    if (currentStep === totalSteps) actualizarResumen();
+  });
+
   // ── Siguiente / Atrás ──
   nextBtn.addEventListener('click', () => {
     if (!validarPasoActual()) return;
@@ -581,6 +589,8 @@ function initWizard() {
     contactOptions.forEach(opt => {
       opt.classList.toggle('selected', opt.dataset.method === method);
     });
+
+    if (currentStep === totalSteps) actualizarResumen();
   }
 
   contactOptions.forEach(opt => {
