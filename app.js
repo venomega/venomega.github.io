@@ -676,8 +676,11 @@ function initWizard() {
     const plazo     = document.getElementById('wizard-plazo').value || 'Por definir';
     const nombreCli = document.getElementById('wizard-nombre-cliente').value.trim() || '—';
     const contacto  = document.getElementById('wizard-contacto').value.trim() || '—';
-    const methodLabels = { telefono: '📞 Teléfono', whatsapp: '💬 WhatsApp', telegram: '✈️ Telegram', email: '✉️ Email' };
+    const methodIcons = { telefono: '3party/phone.svg', whatsapp: '3party/whatsapp.svg', telegram: '3party/telegram.svg', email: '3party/mail.svg' };
+    const methodLabels = { telefono: 'Teléfono', whatsapp: 'WhatsApp', telegram: 'Telegram', email: 'Email' };
+    const iconSrc = methodIcons[selectedMethod] || '';
     const methodLabel = methodLabels[selectedMethod] || selectedMethod;
+    const iconHtml = iconSrc ? `<img src="${iconSrc}" alt="${methodLabel}" style="height:14px;vertical-align:middle;margin-right:4px">` : '';
 
     resumenEl.innerHTML = `
       <strong>📋 Resumen de tu proyecto</strong><br><br>
@@ -686,7 +689,7 @@ function initWizard() {
       <strong>Descripción:</strong> <span>${desc.length > 80 ? desc.slice(0,80)+'…' : desc}</span><br>
       <strong>Presupuesto:</strong> <span>${presupuesto}</span><br>
       <strong>Plazo:</strong> <span>${plazo}</span><br>
-      <strong>Contacto:</strong> <span>${nombreCli} · ${methodLabel}: ${contacto}</span>
+      <strong>Contacto:</strong> <span>${nombreCli} · ${iconHtml}${methodLabel}: ${contacto}</span>
     `;
   }
 
@@ -710,7 +713,7 @@ function initWizard() {
       other: '🔧 Otro'
     };
 
-    const methodLabels = { telefono: '📞 Teléfono', whatsapp: '💬 WhatsApp', telegram: '✈️ Telegram', email: '✉️ Email' };
+    const methodLabels = { telefono: 'Teléfono', whatsapp: 'WhatsApp', telegram: 'Telegram', email: 'Email' };
     const methodLabel = methodLabels[selectedMethod] || selectedMethod;
 
     const data = {
