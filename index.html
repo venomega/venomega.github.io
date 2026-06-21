@@ -283,8 +283,30 @@
           <input class="wizard-input" id="wizard-nombre-cliente" placeholder="Tu nombre" required>
         </div>
         <div class="wizard-form-group">
-          <label class="wizard-label">Email o Telegram</label>
-          <input class="wizard-input" id="wizard-contacto" placeholder="email@ejemplo.com o @usuario" required>
+          <label class="wizard-label">Medio de contacto</label>
+          <div class="wizard-contact-selector">
+            <button class="wizard-contact-option" data-method="telefono">
+              <span class="contact-icon contact-icon-emoji">📞</span>
+              Teléfono
+            </button>
+            <button class="wizard-contact-option" data-method="whatsapp">
+              <span class="contact-icon"><img src="3party/whatsapp.svg" alt="WhatsApp" class="contact-svg"></span>
+              WhatsApp
+            </button>
+            <button class="wizard-contact-option" data-method="telegram">
+              <span class="contact-icon"><img src="3party/telegram.svg" alt="Telegram" class="contact-svg"></span>
+              Telegram
+            </button>
+            <button class="wizard-contact-option" data-method="email">
+              <span class="contact-icon contact-icon-emoji">✉️</span>
+              Email
+            </button>
+          </div>
+        </div>
+        <div class="wizard-form-group" id="wizard-contact-value-group">
+          <label class="wizard-label" id="wizard-contact-label">Teléfono</label>
+          <input class="wizard-input" id="wizard-contacto" placeholder="+53 5 XXX XXXX" inputmode="tel" required>
+          <div class="wizard-contact-hint" id="wizard-contact-hint">Ej: +53 5 123 4567</div>
         </div>
         <div class="wizard-form-group">
           <label class="wizard-label">Notas adicionales (opcional)</label>

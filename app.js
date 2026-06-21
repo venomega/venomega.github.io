@@ -552,6 +552,46 @@ function initWizard() {
   // ── Botón de envío en paso 4 ──
   submitBtn.addEventListener('click', submitProject);
 
+  // ── Selector dinámico de medio de contacto ──
+  const contactOptions = document.querySelectorAll('.wizard-contact-option');
+  const contactInput  = document.getElementById('wizard-contacto');
+  const contactLabel  = document.getElementById('wizard-contact-label');
+  const contactHint   = document.getElementById('wizard-contact-hint');
+  let selectedMethod  = 'telefono'; // default
+
+  const contactConfig = {
+    telefono: { label: 'Teléfono', placeholder: '+53 5 XXX XXXX', hint: 'Ej: +53 5 123 4567', inputmode: 'tel' },
+    whatsapp: { label: 'WhatsApp', placeholder: '+53 5 XXX XXXX', hint: 'Ej: +53 5 123 4567', inputmode: 'tel' },
+    telegram: { label: 'Usuario de Telegram', placeholder: '@usuario', hint: 'Ej: @ztuev', inputmode: 'text' },
+    email:    { label: 'Email', placeholder: 'email@ejemplo.com', hint: 'Ej: usuario@dominio.com', inputmode: 'email' },
+  };
+
+  function updateContactField(method) {
+    const cfg = contactConfig[method];
+    if (!cfg) return;
+    selectedMethod = method;
+    contactLabel.textContent = cfg.label;
+    contactInput.placeholder = cfg.placeholder;
+    contactInput.inputMode   = cfg.inputmode;
+    contactHint.textContent  = cfg.hint;
+    contactInput.value = ''; // limpiar al cambiar
+    contactInput.focus();
+
+    // Update visual selection
+    contactOptions.forEach(opt => {
+      opt.classList.toggle('selected', opt.dataset.method === method);
+    });
+  }
+
+  contactOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+      updateContactField(opt.dataset.method);
+    });
+  });
+
+  // Set default
+  updateContactField('telefono');
+
   // ── Selección de tipo ──
   document.querySelectorAll('.wizard-option').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -595,6 +635,15 @@ function initWizard() {
         shakeElement(document.getElementById('wizard-contacto'));
         return false;
       }
+      // Basic validation based on method
+      if (selectedMethod === 'email' && !contacto.includes('@')) {
+        shakeElement(document.getElementById('wizard-contacto'));
+        return false;
+      }
+      if ((selectedMethod === 'telefono' || selectedMethod === 'whatsapp') && contacto.replace(/[\s+\d]/g,'').length > 2) {
+        shakeElement(document.getElementById('wizard-contacto'));
+        return false;
+      }
       return true;
     }
     return true; // paso 3 es opcional
@@ -627,6 +676,8 @@ function initWizard() {
     const plazo     = document.getElementById('wizard-plazo').value || 'Por definir';
     const nombreCli = document.getElementById('wizard-nombre-cliente').value.trim() || '—';
     const contacto  = document.getElementById('wizard-contacto').value.trim() || '—';
+    const methodLabels = { telefono: '📞 Teléfono', whatsapp: '💬 WhatsApp', telegram: '✈️ Telegram', email: '✉️ Email' };
+    const methodLabel = methodLabels[selectedMethod] || selectedMethod;
 
     resumenEl.innerHTML = `
       <strong>📋 Resumen de tu proyecto</strong><br><br>
@@ -635,7 +686,7 @@ function initWizard() {
       <strong>Descripción:</strong> <span>${desc.length > 80 ? desc.slice(0,80)+'…' : desc}</span><br>
       <strong>Presupuesto:</strong> <span>${presupuesto}</span><br>
       <strong>Plazo:</strong> <span>${plazo}</span><br>
-      <strong>Contacto:</strong> <span>${nombreCli} · ${contacto}</span>
+      <strong>Contacto:</strong> <span>${nombreCli} · ${methodLabel}: ${contacto}</span>
     `;
   }
 
@@ -659,6 +710,9 @@ function initWizard() {
       other: '🔧 Otro'
     };
 
+    const methodLabels = { telefono: '📞 Teléfono', whatsapp: '💬 WhatsApp', telegram: '✈️ Telegram', email: '✉️ Email' };
+    const methodLabel = methodLabels[selectedMethod] || selectedMethod;
+
     const data = {
       tipo: tipoMap[tipoSeleccionado] || tipoSeleccionado,
       nombre: document.getElementById('wizard-nombre').value.trim(),
@@ -668,6 +722,7 @@ function initWizard() {
       presupuesto: document.getElementById('wizard-presupuesto').value,
       plazo: document.getElementById('wizard-plazo').value,
       cliente: document.getElementById('wizard-nombre-cliente').value.trim(),
+      metodo: methodLabel,
       contacto: document.getElementById('wizard-contacto').value.trim(),
       notas: document.getElementById('wizard-notas').value.trim(),
     };
@@ -683,7 +738,7 @@ Presupuesto: ${data.presupuesto || '—'}
 Plazo: ${data.plazo || '—'}
 ━━━━━━━━━━━━━━━━━━━━━━
 Cliente: ${data.cliente}
-Contacto: ${data.contacto}
+${data.metodo}: ${data.contacto}
 Notas: ${data.notas || '—'}
 ━━━━━━━━━━━━━━━━━━━━━━`;
 
@@ -735,6 +790,8 @@ Notas: ${data.notas || '—'}
     // Reset question text for step 4
     const step4Question = document.querySelector('#wizard-step-4 .wizard-question');
     if (step4Question) step4Question.textContent = '¿Cómo te contacto?';
+    // Reset contact selector to default
+    updateContactField('telefono');
     goToStep(1);
   }
 
